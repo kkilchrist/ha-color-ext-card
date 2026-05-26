@@ -1,0 +1,7 @@
+{
+  "name": "Input Color Card",
+  "render_readme": true,
+  "homeassistant": "2024.5.0",
+  "category": "plugin",
+  "filename": "input-color-card.js"
+}

@@ -1,0 +1,25 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build artifacts (we DO ship dist/input-color-card.js, see below)
+*.tsbuildinfo
+.rollup.cache/
+
+# Editor
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# OS
+Thumbs.db
+
+# Coverage / test
+coverage/
+
+# Local env
+.env
+.env.local

@@ -1,0 +1,52 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build + Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build (release / minified)
+        run: npm run build:release
+
+      - name: Validate package.json version matches tag
+        env:
+          GIT_TAG: ${{ github.ref_name }}
+        run: |
+          PKG_VERSION="$(node -p "require('./package.json').version")"
+          EXPECTED="${GIT_TAG#v}"
+          echo "Tag: $GIT_TAG"
+          echo "Tag-derived version: $EXPECTED"
+          echo "package.json version: $PKG_VERSION"
+          if [ "$PKG_VERSION" != "$EXPECTED" ]; then
+            echo "::error::package.json version ($PKG_VERSION) does not match tag ($GIT_TAG -> $EXPECTED)"
+            exit 1
+          fi
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        env:
+          GIT_TAG: ${{ github.ref_name }}
+        with:
+          name: ${{ env.GIT_TAG }}
+          files: dist/input-color-card.js
+          generate_release_notes: true
