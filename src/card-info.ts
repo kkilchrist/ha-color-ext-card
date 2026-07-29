@@ -9,7 +9,7 @@ export function registerCardInfo(): void {
     type: CARD_TYPE,
     name: "Input Color Card",
     description:
-      "Tap a swatch to pick a color, or toggle to White and set a kelvin temperature. Companion to the input_color integration.",
+      "Tap a swatch to pick a color, or toggle to White and set a kelvin temperature. Companion to the color integration.",
     preview: true,
     documentationURL: "https://github.com/kkilchrist/ha-color-ext-card",
   });

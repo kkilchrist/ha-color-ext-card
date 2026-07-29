@@ -35,11 +35,11 @@ export class InputColorCard extends LitElement {
       throw new Error("Invalid configuration");
     }
     if (!config.entity || typeof config.entity !== "string") {
-      throw new Error("You must specify an `entity` (an input_color entity).");
+      throw new Error("You must specify an `entity` (an color entity).");
     }
-    if (!config.entity.startsWith("input_color.")) {
+    if (!config.entity.startsWith("color.")) {
       throw new Error(
-        `Entity must be from the input_color domain. Got: ${config.entity}`
+        `Entity must be from the color domain. Got: ${config.entity}`
       );
     }
     this._config = { ...config };
@@ -122,7 +122,7 @@ export class InputColorCard extends LitElement {
   private async _callSetColor(data: Record<string, unknown>): Promise<void> {
     if (!this.hass || !this._config?.entity) return;
     try {
-      await this.hass.callService("input_color", "set_color", data, {
+      await this.hass.callService("color", "set_color", data, {
         entity_id: this._config.entity,
       });
     } catch (err) {
